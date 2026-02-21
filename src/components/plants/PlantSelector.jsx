@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { plants } from '../../data/plants.js'
-import PlantCard from './PlantCard.jsx'
+import DraggablePaletteCard from './DraggablePaletteCard.jsx'
 import Input from '../ui/Input.jsx'
 import styles from './PlantSelector.module.css'
 
@@ -34,6 +34,10 @@ export default function PlantSelector({ selectedPlantIds, onToggle }) {
         className={styles.search}
       />
 
+      {filtered.length > 0 && (
+        <p className={styles.dragHint}>Drag a plant onto the grid, or click to select it.</p>
+      )}
+
       {selectedPlantIds.length > 0 && companionIds.length > 0 && (
         <p className={styles.companionHint}>
           ★ Highlighted plants are companions to your selection.
@@ -42,7 +46,7 @@ export default function PlantSelector({ selectedPlantIds, onToggle }) {
 
       <div className={styles.grid}>
         {filtered.map(plant => (
-          <PlantCard
+          <DraggablePaletteCard
             key={plant.id}
             plant={plant}
             isSelected={selectedPlantIds.includes(plant.id)}

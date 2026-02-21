@@ -1,5 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+  closestCenter,
+} from '@dnd-kit/core'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { loadBed, saveBed } from '../lib/storage.js'
 import { useGrid } from '../hooks/useGrid.js'
 import { plantsById } from '../data/plants.js'
@@ -12,6 +22,7 @@ import ExcludedPlants from '../components/excluded/ExcludedPlants.jsx'
 import Button from '../components/ui/Button.jsx'
 import Modal from '../components/ui/Modal.jsx'
 import styles from './BedPlannerPage.module.css'
+import gridStyles from '../components/grid/BedGrid.module.css'
 
 const TABS = ['Plants', 'Companions', 'Timing']
 
@@ -23,6 +34,8 @@ export default function BedPlannerPage() {
   const [saved, setSaved] = useState(true)
   const [selectedCellIndex, setSelectedCellIndex] = useState(null)
   const [showPlantPickerModal, setShowPlantPickerModal] = useState(false)
+  const [activeId, setActiveId] = useState(null)
+  const suppressNextCellClick = useRef(false)
 
   // Load bed on mount
   useEffect(() => {
@@ -66,8 +79,66 @@ export default function BedPlannerPage() {
     return () => clearTimeout(t)
   }, [state.bed, state.selectedPlantIds, state.placements])
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  )
+
+  const cellMap = useMemo(
+    () => Object.fromEntries((state.placements ?? []).map(p => [p.cellIndex, p.plantId])),
+    [state.placements]
+  )
+
+  const activePlant = useMemo(() => {
+    if (!activeId) return null
+    const s = String(activeId)
+    if (s.startsWith('palette-')) {
+      return plantsById[s.replace('palette-', '')]
+    }
+    if (s.startsWith('draggable-')) {
+      const idx = parseInt(s.replace('draggable-', ''), 10)
+      const plantId = cellMap[idx]
+      return plantId ? plantsById[plantId] : null
+    }
+    return null
+  }, [activeId, cellMap])
+
+  function handleDragStart({ active }) {
+    setActiveId(active.id)
+  }
+
+  function handleDragEnd({ active, over }) {
+    setActiveId(null)
+    if (!over) return
+
+    const activeStr = String(active.id)
+    const overStr   = String(over.id)
+
+    if (activeStr.startsWith('palette-')) {
+      if (!overStr.startsWith('cell-')) return
+      const plantId   = activeStr.replace('palette-', '')
+      const cellIndex = parseInt(overStr.replace('cell-', ''), 10)
+      if (isNaN(cellIndex)) return
+      placePlant(cellIndex, plantId)
+      if (!state.selectedPlantIds.includes(plantId)) {
+        togglePlantSelected(plantId)
+      }
+      suppressNextCellClick.current = true
+    } else if (activeStr.startsWith('draggable-')) {
+      if (active.id === over.id) return
+      const fromIndex = parseInt(activeStr.replace('draggable-', ''), 10)
+      const toIndex   = parseInt(overStr.replace('cell-', ''), 10)
+      if (!isNaN(fromIndex) && !isNaN(toIndex)) {
+        movePlant(fromIndex, toIndex)
+      }
+    }
+  }
+
   function handleCellClick(cellIndex) {
-    const cellMap = Object.fromEntries(state.placements.map(p => [p.cellIndex, p.plantId]))
+    if (suppressNextCellClick.current) {
+      suppressNextCellClick.current = false
+      return
+    }
     if (!cellMap[cellIndex]) {
       setSelectedCellIndex(cellIndex)
       setShowPlantPickerModal(true)
@@ -129,76 +200,92 @@ export default function BedPlannerPage() {
         </div>
       </div>
 
-      <div className={styles.layout}>
-        {/* Left: grid + pills + excluded */}
-        <div className={styles.gridArea}>
-          <div className={styles.gridScroll}>
-            <BedGrid
-              width={bed.width}
-              height={bed.height}
-              placements={placements}
-              warnings={warnings}
-              onMove={movePlant}
-              onRemove={removePlant}
-              onCellClick={handleCellClick}
-              selectedCellIndex={selectedCellIndex}
-            />
-          </div>
-
-          {selectedPlantIds.length > 0 && (
-            <div className={styles.selectedPills}>
-              <span className={styles.pillsLabel}>Selected:</span>
-              {selectedPlantIds.map(plantId => (
-                <PlantPill
-                  key={plantId}
-                  plantId={plantId}
-                  onRemove={() => togglePlantSelected(plantId)}
-                />
-              ))}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <div className={styles.layout}>
+          {/* Left: grid + pills + excluded */}
+          <div className={styles.gridArea}>
+            <div className={styles.gridScroll}>
+              <BedGrid
+                width={bed.width}
+                height={bed.height}
+                placements={placements}
+                warnings={warnings}
+                onMove={movePlant}
+                onRemove={removePlant}
+                onCellClick={handleCellClick}
+                selectedCellIndex={selectedCellIndex}
+              />
             </div>
-          )}
 
-          {excludedPlantIds.length > 0 && (
-            <ExcludedPlants
-              excludedPlantIds={excludedPlantIds}
-              placements={placements}
-              onSwap={swapExcluded}
-            />
-          )}
-        </div>
+            {selectedPlantIds.length > 0 && (
+              <div className={styles.selectedPills}>
+                <span className={styles.pillsLabel}>Selected:</span>
+                {selectedPlantIds.map(plantId => (
+                  <PlantPill
+                    key={plantId}
+                    plantId={plantId}
+                    onRemove={() => togglePlantSelected(plantId)}
+                  />
+                ))}
+              </div>
+            )}
 
-        {/* Right: sidebar tabs */}
-        <div className={styles.sidebar}>
-          <div className={styles.tabs} role="tablist">
-            {TABS.map(tab => (
-              <button
-                key={tab}
-                role="tab"
-                aria-selected={activeTab === tab}
-                className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          <div className={styles.tabContent}>
-            {activeTab === 'Plants' && (
-              <PlantSelector
-                selectedPlantIds={selectedPlantIds}
-                onToggle={togglePlantSelected}
+            {excludedPlantIds.length > 0 && (
+              <ExcludedPlants
+                excludedPlantIds={excludedPlantIds}
+                placements={placements}
+                onSwap={swapExcluded}
               />
             )}
-            {activeTab === 'Companions' && (
-              <CompanionPanel selectedPlantIds={selectedPlantIds} />
-            )}
-            {activeTab === 'Timing' && (
-              <TimingPanel selectedPlantIds={selectedPlantIds} />
-            )}
+          </div>
+
+          {/* Right: sidebar tabs */}
+          <div className={styles.sidebar}>
+            <div className={styles.tabs} role="tablist">
+              {TABS.map(tab => (
+                <button
+                  key={tab}
+                  role="tab"
+                  aria-selected={activeTab === tab}
+                  className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            <div className={styles.tabContent}>
+              {activeTab === 'Plants' && (
+                <PlantSelector
+                  selectedPlantIds={selectedPlantIds}
+                  onToggle={togglePlantSelected}
+                />
+              )}
+              {activeTab === 'Companions' && (
+                <CompanionPanel selectedPlantIds={selectedPlantIds} />
+              )}
+              {activeTab === 'Timing' && (
+                <TimingPanel selectedPlantIds={selectedPlantIds} />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+
+        <DragOverlay>
+          {activePlant ? (
+            <div className={gridStyles.dragOverlay}>
+              <span>{activePlant.emoji}</span>
+              <span>{activePlant.name}</span>
+            </div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
 
       {/* Cell plant-picker modal */}
       <Modal
