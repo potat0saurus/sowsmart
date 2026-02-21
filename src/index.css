@@ -3,25 +3,25 @@
    ============================================================ */
 
 :root {
-  /* Colour palette */
-  --color-brand:        #4a7c59;   /* garden green */
-  --color-brand-light:  #6aaa80;
-  --color-brand-dark:   #2e5c3a;
-  --color-accent:       #e07b39;   /* warm amber */
-  --color-bg:           #f7f4ef;   /* warm off-white */
-  --color-surface:      #ffffff;
-  --color-border:       #d8d2c8;
-  --color-text:         #2d2d2d;
-  --color-text-muted:   #7a7570;
-  --color-text-inv:     #ffffff;
+  /* Colour palette — Scandinavian folk illustration */
+  --color-brand:        #5c7a61;   /* muted sage green */
+  --color-brand-light:  #7e9e82;   /* lighter sage */
+  --color-brand-dark:   #3d5c42;   /* deep forest green */
+  --color-accent:       #c4714a;   /* dusty terracotta */
+  --color-bg:           #ede8da;   /* warm parchment */
+  --color-surface:      #f8f4ec;   /* warm off-white */
+  --color-border:       #ccc4b0;   /* warm taupe */
+  --color-text:         #2c2820;   /* warm near-black */
+  --color-text-muted:   #7a7060;   /* warm gray */
+  --color-text-inv:     #f8f4ec;   /* warm white */
 
-  /* Companion relationship colours */
-  --color-companion:    #2e7d32;   /* green */
-  --color-competitor:   #e65100;   /* amber */
-  --color-incompatible: #c62828;   /* red */
-  --color-companion-bg:    #e8f5e9;
-  --color-competitor-bg:   #fff3e0;
-  --color-incompatible-bg: #ffebee;
+  /* Companion relationship colours — muted to match palette */
+  --color-companion:    #4a6e50;   /* muted sage */
+  --color-competitor:   #b86840;   /* dusty amber */
+  --color-incompatible: #963c3c;   /* dusty brick red */
+  --color-companion-bg:    #e4ebe4;   /* muted sage tint */
+  --color-competitor-bg:   #f0e6da;   /* warm peach tint */
+  --color-incompatible-bg: #ece4e4;   /* muted rose tint */
 
   /* Grid */
   --cell-size:          72px;
@@ -47,10 +47,10 @@
   --font-size-xl:  22px;
   --font-size-2xl: 28px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  /* Shadows — softer to match flat illustration aesthetic */
+  --shadow-sm: 0 1px 3px rgba(44,40,32,0.07);
+  --shadow-md: 0 4px 12px rgba(44,40,32,0.09);
+  --shadow-lg: 0 8px 24px rgba(44,40,32,0.11);
 
   /* Transitions */
   --transition: 150ms ease;
