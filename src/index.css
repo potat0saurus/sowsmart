@@ -5,25 +5,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colour palette — Scandinavian folk illustration */
-  --color-brand:        #5c7a61;   /* muted sage green */
-  --color-brand-light:  #7e9e82;   /* lighter sage */
-  --color-brand-dark:   #3d5c42;   /* deep forest green */
-  --color-accent:       #c4714a;   /* dusty terracotta */
-  --color-bg:           #ede8da;   /* warm parchment */
-  --color-surface:      #f8f4ec;   /* warm off-white */
-  --color-border:       #ccc4b0;   /* warm taupe */
-  --color-text:         #2c2820;   /* warm near-black */
-  --color-text-muted:   #7a7060;   /* warm gray */
-  --color-text-inv:     #f8f4ec;   /* warm white */
+  /* Colour palette — Hilda-inspired folk illustration */
+  --color-brand:        #689595;   /* dusty teal */
+  --color-brand-light:  #7083a5;   /* muted periwinkle */
+  --color-brand-dark:   #596088;   /* slate navy */
+  --color-accent:       #9c6853;   /* dusty terracotta */
+  --color-bg:           #e6e2e7;   /* very light lavender gray */
+  --color-surface:      #fbdfcb;   /* warm light peach */
+  --color-border:       #c0a5a9;   /* dusty mauve */
+  --color-text:         #2a2e45;   /* dark navy */
+  --color-text-muted:   #645764;   /* muted purple-gray */
+  --color-text-inv:     #e6e2e7;   /* light lavender */
 
-  /* Companion relationship colours — muted to match palette */
-  --color-companion:    #4a6e50;   /* muted sage */
-  --color-competitor:   #b86840;   /* dusty amber */
-  --color-incompatible: #963c3c;   /* dusty brick red */
-  --color-companion-bg:    #e4ebe4;   /* muted sage tint */
-  --color-competitor-bg:   #f0e6da;   /* warm peach tint */
-  --color-incompatible-bg: #ece4e4;   /* muted rose tint */
+  /* Companion relationship colours */
+  --color-companion:    #689595;   /* dusty teal */
+  --color-competitor:   #9c6853;   /* dusty terracotta */
+  --color-incompatible: #d55c5a;   /* muted coral red */
+  --color-companion-bg:    #cbcde8;   /* light periwinkle tint */
+  --color-competitor-bg:   #f6c992;   /* warm golden tint */
+  --color-incompatible-bg: #f2cbc9;   /* very light blush */
 
   /* Grid */
   --cell-size:          72px;
@@ -49,10 +49,10 @@
   --font-size-xl:  22px;
   --font-size-2xl: 28px;
 
-  /* Shadows — softer to match flat illustration aesthetic */
-  --shadow-sm: 0 1px 3px rgba(44,40,32,0.07);
-  --shadow-md: 0 4px 12px rgba(44,40,32,0.09);
-  --shadow-lg: 0 8px 24px rgba(44,40,32,0.11);
+  /* Shadows — tinted with dark navy */
+  --shadow-sm: 0 1px 3px rgba(42,46,69,0.08);
+  --shadow-md: 0 4px 12px rgba(42,46,69,0.10);
+  --shadow-lg: 0 8px 24px rgba(42,46,69,0.12);
 
   /* Transitions */
   --transition: 150ms ease;
