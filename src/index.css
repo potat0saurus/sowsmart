@@ -2,6 +2,8 @@
    SowSmart — Design tokens & global styles
    ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
 :root {
   /* Colour palette — Scandinavian folk illustration */
   --color-brand:        #5c7a61;   /* muted sage green */
