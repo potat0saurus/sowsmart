@@ -1,0 +1,25 @@
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 10px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  cursor: help;
+  line-height: 1;
+}
+
+.incompatible {
+  background: var(--color-incompatible);
+  color: white;
+}
+
+.competitor {
+  background: var(--color-competitor);
+  color: white;
+}

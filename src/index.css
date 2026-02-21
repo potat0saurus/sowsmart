@@ -1,0 +1,117 @@
+/* ============================================================
+   SowSmart — Design tokens & global styles
+   ============================================================ */
+
+:root {
+  /* Colour palette */
+  --color-brand:        #4a7c59;   /* garden green */
+  --color-brand-light:  #6aaa80;
+  --color-brand-dark:   #2e5c3a;
+  --color-accent:       #e07b39;   /* warm amber */
+  --color-bg:           #f7f4ef;   /* warm off-white */
+  --color-surface:      #ffffff;
+  --color-border:       #d8d2c8;
+  --color-text:         #2d2d2d;
+  --color-text-muted:   #7a7570;
+  --color-text-inv:     #ffffff;
+
+  /* Companion relationship colours */
+  --color-companion:    #2e7d32;   /* green */
+  --color-competitor:   #e65100;   /* amber */
+  --color-incompatible: #c62828;   /* red */
+  --color-companion-bg:    #e8f5e9;
+  --color-competitor-bg:   #fff3e0;
+  --color-incompatible-bg: #ffebee;
+
+  /* Grid */
+  --cell-size:          72px;
+  --grid-gap:           4px;
+  --cell-radius:        6px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-size-xs:  11px;
+  --font-size-sm:  13px;
+  --font-size-md:  15px;
+  --font-size-lg:  18px;
+  --font-size-xl:  22px;
+  --font-size-2xl: 28px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+  /* Transitions */
+  --transition: 150ms ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}

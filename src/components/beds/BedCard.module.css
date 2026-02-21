@@ -1,0 +1,67 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.preview {
+  background: var(--color-companion-bg);
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.miniGrid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  max-width: 160px;
+}
+
+.miniCell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--color-border);
+}
+
+.miniCellFilled {
+  background: var(--color-brand);
+}
+
+.info {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.name { font-size: var(--font-size-lg); }
+.meta { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+
+.planLink {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+  margin-right: auto;
+}

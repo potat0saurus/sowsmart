@@ -1,0 +1,21 @@
+.wrapper { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.search { max-width: 300px; }
+
+.companionHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-brand);
+  font-style: italic;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.noResults {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-3);
+}

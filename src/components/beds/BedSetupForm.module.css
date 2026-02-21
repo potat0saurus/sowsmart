@@ -1,0 +1,28 @@
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.dims {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.dims > * { flex: 1; }
+
+.dimsSep {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  padding-bottom: var(--space-2);
+  flex: 0;
+}
+
+.hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  padding-top: var(--space-2);
+}

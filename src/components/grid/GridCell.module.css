@@ -1,0 +1,84 @@
+.cell {
+  position: relative;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: var(--cell-radius);
+  border: 1.5px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  user-select: none;
+  overflow: hidden;
+}
+
+.cell:hover .removeBtn { opacity: 1; }
+
+.empty {
+  background: var(--color-surface);
+  color: var(--color-border);
+}
+
+.empty:hover {
+  border-color: var(--color-brand);
+  background: var(--color-companion-bg);
+  color: var(--color-brand);
+}
+
+.filled {
+  background: var(--color-companion-bg);
+  border-color: var(--color-brand-light);
+  cursor: grab;
+}
+
+.filled:active { cursor: grabbing; }
+
+.warnIncompatible {
+  background: var(--color-incompatible-bg) !important;
+  border-color: var(--color-incompatible) !important;
+}
+
+.warnCompetitor {
+  background: var(--color-competitor-bg) !important;
+  border-color: var(--color-competitor) !important;
+}
+
+.dropTarget {
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 2px var(--color-brand-light);
+  background: var(--color-companion-bg) !important;
+}
+
+.selected {
+  box-shadow: 0 0 0 2px var(--color-brand);
+}
+
+.emoji { font-size: 22px; line-height: 1; }
+.name  { font-size: 9px; font-weight: 600; text-align: center; color: var(--color-text); line-height: 1.1; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.count { font-size: 8px; color: var(--color-text-muted); }
+
+.plusIcon {
+  font-size: 20px;
+  color: var(--color-border);
+  transition: color var(--transition);
+}
+.empty:hover .plusIcon { color: var(--color-brand); }
+
+.removeBtn {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  background: none;
+  border: none;
+  font-size: 9px;
+  color: var(--color-text-muted);
+  padding: 1px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--transition);
+  border-radius: 2px;
+}
+.removeBtn:hover { color: var(--color-incompatible); background: var(--color-incompatible-bg); }
