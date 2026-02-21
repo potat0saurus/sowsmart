@@ -10,7 +10,7 @@
 
 SowSmart is a square foot gardening planner that helps users design, optimise, and manage their garden beds. Users input their bed dimensions, select vegetables, and the app calculates planting configurations, flags companion planting conflicts, and provides timing guidance based on their growing zone.
 
-The end goal is a mobile app (iOS & Android) with a whimsical, Studio Ghibli-inspired aesthetic — warm, painterly, and joyful. The MVP is a browser-based tool focused on core planning functionality.
+The end goal is a mobile app (iOS & Android) with a Scandinavian folk illustration aesthetic — muted, chalky palette of dusty blues, sage greens, and warm terracotta; flat graphic style with confident linework; cozy and adventurous, whimsical without being saccharine. The MVP is a browser-based tool focused on core planning functionality.
 
 ---
 
@@ -80,8 +80,8 @@ There's no single tool that combines grid planning, companion planting intellige
 - Saved beds and gardens synced across devices
 
 ### Design
-- Whimsical, painterly aesthetic inspired by Studio Ghibli
-- Warm colour palette, illustrated plant icons, soft textures
+- Scandinavian folk illustration aesthetic — muted, chalky palette of dusty blues, sage greens, and warm terracotta; flat graphic style with confident linework; cozy and adventurous, whimsical without being saccharine
+- Illustrated plant icons (hand-drawn style), soft textures
 - Feels like a garden journal, not a spreadsheet
 
 ---
@@ -115,7 +115,7 @@ The MVP validates the core planning loop in the browser with no login required.
 - Bed grouping / multi-bed gardens
 - Cross-bed companion planting
 - Mobile app
-- Studio Ghibli visual design _(MVP can be clean and functional)_
+- Full visual design _(MVP can be clean and functional)_
 
 ---
 
@@ -186,9 +186,9 @@ The MVP validates the core planning loop in the browser with no login required.
 - Clear colour coding for companion (green), competitive (yellow/amber), incompatible (red) relationships
 
 ### End Goal
-- **Studio Ghibli-inspired** — warm, painterly, whimsical
+- Scandinavian folk illustration aesthetic — muted, chalky palette of dusty blues, sage greens, and warm terracotta; flat graphic style with confident linework; cozy and adventurous, whimsical without being saccharine _(see Design Brief below)_
 - Illustrated plant icons (hand-drawn style)
-- Soft earthy tones, watercolour textures
+- Soft, slightly grayed-down earthy tones — colors that feel hand-mixed rather than picked from a color wheel
 - Feels like a living garden journal
 - Animations: plants "growing" into squares, gentle leaf movements
 - Typography: friendly, slightly rounded — not sterile
@@ -212,7 +212,39 @@ The MVP validates the core planning loop in the browser with no login required.
 
 ---
 
-## 13. Success Metrics (End Goal)
+## 13. Design Brief
+
+_For use by designers. Expands on the design direction in Section 10._
+
+### Visual Style
+The aesthetic draws from Scandinavian folk illustration and mid-century children's book art — flat shapes, confident linework, strong silhouettes, and a graphic quality that feels hand-crafted rather than digital. Think the illustrations of Nordic picture books and graphic novels: clean, expressive, and quietly magical.
+
+### Color Palette
+- Muted, chalky tones — colors that feel like gouache or colored pencil, not digital primaries
+- Core palette: dusty blues, sage greens, warm terracotta, soft lavender, and muted amber
+- Backgrounds use desaturated, earthy tones; key UI elements can carry slightly richer color
+- The overall feeling is Nordic naturalist: the colors of fog, lichen, autumn berries, and candlelight
+- Avoid fully saturated or neon colors — everything should feel slightly grayed-down and hand-mixed
+
+### Mood & Atmosphere
+- Cozy-meets-wilderness: the warmth of a wood-paneled interior against a vast, misty outdoor world
+- Adventurous but grounded — whimsical without being precious or saccharine
+- Magical realism in tone: the fantastical presented matter-of-factly, nothing overwrought or sparkly
+- Autumnal and atmospheric — overcast skies, deep forests, mossy stones
+
+### Texture & Finish
+- Slight paper or grain texture on backgrounds to reinforce the hand-made quality
+- No glossy gradients or drop shadows — keep it flat and illustrative
+- Soft, organic shapes preferred over hard geometric ones
+
+### Typography
+- Friendly, slightly rounded — warm but legible
+- Not sterile or clinical; not overly decorative either
+- Should feel like it belongs in a well-designed field guide or nature journal
+
+---
+
+## 14. Success Metrics (End Goal)
 
 - Users successfully complete a full bed plan in under 10 minutes
 - Retention: users return to update/add beds across multiple growing seasons
