@@ -133,7 +133,18 @@ export function useGrid(initialBed, initialSelectedPlantIds, initialPlacements) 
 
   function applySuggestion() {
     if (!state.bed) return
-    const result = autoSuggest(state.selectedPlantIds, state.bed.width, state.bed.height)
+    // Count how many cells each plant type occupies in the current layout.
+    // selectedPlantIds is a deduplicated list (each type appears once), so we
+    // expand it using placement counts so autoSuggest sees e.g. ['tomato',
+    // 'tomato'] when the user has two tomato cells, not just ['tomato'].
+    const placementCounts = {}
+    for (const p of state.placements) {
+      placementCounts[p.plantId] = (placementCounts[p.plantId] || 0) + 1
+    }
+    const expandedPlantIds = state.selectedPlantIds.flatMap(id =>
+      Array(Math.max(placementCounts[id] || 0, 1)).fill(id)
+    )
+    const result = autoSuggest(expandedPlantIds, state.bed.width, state.bed.height)
     dispatch({ type: 'APPLY_SUGGESTION', placements: result.placements, excluded: result.excluded })
   }
 
