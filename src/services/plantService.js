@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { plants as staticPlants, plantsById as staticPlantsById } from '../data/plants.js'
 
 function mapPlant(row) {
   return {
@@ -15,6 +16,11 @@ function mapPlant(row) {
 }
 
 export async function getPlants() {
+  // Fall back to static data when Supabase is not configured
+  if (!import.meta.env.VITE_SUPABASE_URL) {
+    return { plants: staticPlants, plantsById: staticPlantsById }
+  }
+
   const { data, error } = await supabase
     .from('plants')
     .select('*')
