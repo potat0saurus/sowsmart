@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import { computeWarnings } from '../lib/compatibility.js'
 import { autoSuggest } from '../lib/autoSuggest.js'
+import { plantsById } from '../data/plants.js'
 
 const initialState = {
   bed: null,
@@ -147,7 +148,7 @@ export function useGrid(initialBed, initialSelectedPlantIds, initialPlacements) 
     const expandedPlantIds = state.selectedPlantIds.flatMap(id =>
       Array(Math.max(placementCounts[id] || 0, 1)).fill(id)
     )
-    const result = autoSuggest(expandedPlantIds, state.bed.width, state.bed.height)
+    const result = autoSuggest(expandedPlantIds, state.bed.width, state.bed.height, plantsById)
     dispatch({ type: 'APPLY_SUGGESTION', placements: result.placements, excluded: result.excluded })
   }
 
