@@ -77,8 +77,11 @@ function BedPlannerContent({ bedData }) {
     bedData.placements ?? []
   )
 
-  // Auto-save on user changes only — skip the initial mount so we never
-  // overwrite localStorage with empty state before the user acts.
+  // Always keep a ref to the latest state so the unmount save can access it
+  const stateRef = useRef(state)
+  useEffect(() => { stateRef.current = state })
+
+  // Debounced auto-save on user changes
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true
@@ -95,6 +98,14 @@ function BedPlannerContent({ bedData }) {
     }, 800)
     return () => clearTimeout(t)
   }, [state.selectedPlantIds, state.placements])
+
+  // Save immediately on unmount so navigating away never loses pending changes
+  useEffect(() => {
+    return () => {
+      const { bed, selectedPlantIds, placements } = stateRef.current
+      if (bed) saveBed({ ...bed, selectedPlantIds, placements })
+    }
+  }, [])
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
