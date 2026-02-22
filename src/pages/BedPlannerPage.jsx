@@ -26,27 +26,45 @@ import gridStyles from '../components/grid/BedGrid.module.css'
 
 const TABS = ['Plants', 'Companions', 'Timing']
 
+// Loading shell — waits for bed data before rendering the planner
 export default function BedPlannerPage() {
   const { id } = useParams()
   const [bedData, setBedData] = useState(null)
   const [notFound, setNotFound] = useState(false)
-  const [activeTab, setActiveTab] = useState('Plants')
-  const [saved, setSaved] = useState(true)
-  const [selectedCellIndex, setSelectedCellIndex] = useState(null)
-  const [showPlantPickerModal, setShowPlantPickerModal] = useState(false)
-  const [activeId, setActiveId] = useState(null)
-  const suppressNextCellClick = useRef(false)
 
-  // Load bed on mount
   useEffect(() => {
     const loaded = loadBed(id)
     if (!loaded) { setNotFound(true); return }
     setBedData(loaded)
   }, [id])
 
+  if (notFound) {
+    return (
+      <div className={styles.notFound}>
+        <p>Bed not found.</p>
+        <Link to="/">← Back to beds</Link>
+      </div>
+    )
+  }
+
+  if (!bedData) return <div className={styles.loading}>Loading…</div>
+
+  return <BedPlannerContent bedData={bedData} />
+}
+
+// Planner content — only mounts once bedData is available so useGrid
+// always initialises with real data, eliminating the async restore race.
+function BedPlannerContent({ bedData }) {
+  const [saved, setSaved] = useState(true)
+  const [activeTab, setActiveTab] = useState('Plants')
+  const [selectedCellIndex, setSelectedCellIndex] = useState(null)
+  const [showPlantPickerModal, setShowPlantPickerModal] = useState(false)
+  const [activeId, setActiveId] = useState(null)
+  const suppressNextCellClick = useRef(false)
+  const isMounted = useRef(false)
+
   const {
     state,
-    setBedMeta,
     togglePlantSelected,
     applySuggestion,
     movePlant,
@@ -55,18 +73,17 @@ export default function BedPlannerPage() {
     swapExcluded,
   } = useGrid(
     bedData,
-    bedData?.selectedPlantIds,
-    bedData?.placements
+    bedData.selectedPlantIds ?? [],
+    bedData.placements ?? []
   )
 
-  // Sync bed into grid when it loads
+  // Auto-save on user changes only — skip the initial mount so we never
+  // overwrite localStorage with empty state before the user acts.
   useEffect(() => {
-    if (bedData) setBedMeta(bedData)
-  }, [bedData]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Auto-save whenever state changes (debounced 800 ms)
-  useEffect(() => {
-    if (!state.bed) return
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
     setSaved(false)
     const t = setTimeout(() => {
       saveBed({
@@ -77,7 +94,7 @@ export default function BedPlannerPage() {
       setSaved(true)
     }, 800)
     return () => clearTimeout(t)
-  }, [state.bed, state.selectedPlantIds, state.placements])
+  }, [state.selectedPlantIds, state.placements])
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -157,19 +174,6 @@ export default function BedPlannerPage() {
   function handleClosePickerModal() {
     setShowPlantPickerModal(false)
     setSelectedCellIndex(null)
-  }
-
-  if (notFound) {
-    return (
-      <div className={styles.notFound}>
-        <p>Bed not found.</p>
-        <Link to="/">← Back to beds</Link>
-      </div>
-    )
-  }
-
-  if (!state.bed) {
-    return <div className={styles.loading}>Loading…</div>
   }
 
   const { bed, selectedPlantIds, placements, excludedPlantIds, warnings } = state
