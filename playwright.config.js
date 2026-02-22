@@ -9,7 +9,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   // Retry once on CI to account for flakiness
   retries: process.env.CI ? 1 : 0,
-  reporter: [['html'], ['list']],
+  reporter: process.env.CI
+    ? [['github'], ['html'], ['json', { outputFile: 'results.json' }]]
+    : [['html'], ['list']],
   use: {
     baseURL: STAGING_URL ?? 'http://localhost:5173',
     trace: 'on-first-retry',

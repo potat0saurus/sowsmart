@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   issues: write
+  checks: write
 
 jobs:
   test:
@@ -52,6 +53,43 @@ jobs:
         run: npx playwright test
         env:
           STAGING_URL: ${{ steps.netlify.outputs.deploy-url }}
+
+      - name: Write job summary
+        if: always()
+        run: |
+          node -e "
+            const fs = require('fs');
+            if (!fs.existsSync('results.json')) {
+              fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '## Playwright E2E\nNo results found.\n');
+              process.exit(0);
+            }
+            const r = JSON.parse(fs.readFileSync('results.json', 'utf8'));
+            const { expected: passed, unexpected: failed, flaky, skipped } = r.stats;
+            const icon = failed > 0 ? '❌' : '✅';
+            const rows = (r.suites || []).flatMap(function flatten(s) {
+              const specRows = (s.specs || []).map(sp => {
+                const status = sp.tests.every(t => t.status === 'expected') ? '✅' : '❌';
+                return \`| \${status} | \${sp.title} |\`;
+              });
+              return specRows.concat((s.suites || []).flatMap(flatten));
+            });
+            const lines = [
+              \`## \${icon} Playwright E2E\`,
+              '',
+              '| | |',
+              '|---|---|',
+              \`| ✅ Passed | \${passed} |\`,
+              \`| ❌ Failed | \${failed} |\`,
+              \`| ⚡ Flaky | \${flaky} |\`,
+              \`| ⏭ Skipped | \${skipped} |\`,
+              '',
+              '| Status | Test |',
+              '|--------|------|',
+              ...rows,
+              '',
+            ];
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n'));
+          "
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
