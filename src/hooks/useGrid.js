@@ -21,7 +21,10 @@ function recomputeWarnings(state) {
 function gridReducer(state, action) {
   switch (action.type) {
     case 'SET_BED_META': {
-      return recomputeWarnings({ ...state, bed: action.bed })
+      const next = { ...state, bed: action.bed }
+      if (action.placements !== undefined) next.placements = action.placements
+      if (action.selectedPlantIds !== undefined) next.selectedPlantIds = action.selectedPlantIds
+      return recomputeWarnings(next)
     }
 
     case 'TOGGLE_PLANT_SELECTED': {
@@ -123,8 +126,8 @@ export function useGrid(initialBed, initialSelectedPlantIds, initialPlacements) 
       : {},
   })
 
-  function setBedMeta(bed) {
-    dispatch({ type: 'SET_BED_META', bed })
+  function setBedMeta(bed, placements, selectedPlantIds) {
+    dispatch({ type: 'SET_BED_META', bed, placements, selectedPlantIds })
   }
 
   function togglePlantSelected(plantId) {
