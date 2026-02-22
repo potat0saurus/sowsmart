@@ -12,7 +12,7 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { loadBed, saveBed } from '../lib/storage.js'
 import { useGrid } from '../hooks/useGrid.js'
-import { plantsById } from '../data/plants.js'
+import { usePlants } from '../context/PlantsContext.jsx'
 import BedGrid from '../components/grid/BedGrid.jsx'
 import PlantSelector from '../components/plants/PlantSelector.jsx'
 import PlantPill from '../components/plants/PlantPill.jsx'
@@ -55,6 +55,7 @@ export default function BedPlannerPage() {
 // Planner content — only mounts once bedData is available so useGrid
 // always initialises with real data, eliminating the async restore race.
 function BedPlannerContent({ bedData }) {
+  const { plantsById } = usePlants()
   const [saved, setSaved] = useState(true)
   const [activeTab, setActiveTab] = useState('Plants')
   const [selectedCellIndex, setSelectedCellIndex] = useState(null)

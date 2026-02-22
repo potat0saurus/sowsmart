@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import { plants, plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import Badge from '../ui/Badge.jsx'
 import styles from './CompanionPanel.module.css'
 
 export default function CompanionPanel({ selectedPlantIds }) {
+  const { plantsById } = usePlants()
   const rows = useMemo(() => {
     return selectedPlantIds.map(id => {
       const plant = plantsById[id]
@@ -22,7 +23,7 @@ export default function CompanionPanel({ selectedPlantIds }) {
 
       return { plant, companions, competitors, incompatible, suggested }
     }).filter(Boolean)
-  }, [selectedPlantIds])
+  }, [selectedPlantIds, plantsById])
 
   if (selectedPlantIds.length === 0) {
     return (

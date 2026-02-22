@@ -1,10 +1,11 @@
-import { plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import { getPlantTiming, zoneBand, zoneBandLabel } from '../../lib/timing.js'
 import { useAppContext } from '../../context/AppContext.jsx'
 import Input from '../ui/Input.jsx'
 import styles from './TimingPanel.module.css'
 
 export default function TimingPanel({ selectedPlantIds }) {
+  const { plantsById } = usePlants()
   const { usdaZone, updateZone } = useAppContext()
   const band = zoneBand(usdaZone)
 

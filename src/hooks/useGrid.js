@@ -1,23 +1,7 @@
-import { useReducer } from 'react'
+import { useReducer, useMemo } from 'react'
 import { computeWarnings } from '../lib/compatibility.js'
 import { autoSuggest } from '../lib/autoSuggest.js'
-import { plantsById } from '../data/plants.js'
-
-const initialState = {
-  bed: null,
-  selectedPlantIds: [],
-  placements: [],
-  excludedPlantIds: [],
-  warnings: {},
-}
-
-function recomputeWarnings(state) {
-  if (!state.bed) return state
-  return {
-    ...state,
-    warnings: computeWarnings(state.placements, state.bed.width, state.bed.height),
-  }
-}
+import { usePlants } from '../context/PlantsContext.jsx'
 
 function gridReducer(state, action) {
   switch (action.type) {
@@ -25,7 +9,7 @@ function gridReducer(state, action) {
       const next = { ...state, bed: action.bed }
       if (action.placements !== undefined) next.placements = action.placements
       if (action.selectedPlantIds !== undefined) next.selectedPlantIds = action.selectedPlantIds
-      return recomputeWarnings(next)
+      return next
     }
 
     case 'TOGGLE_PLANT_SELECTED': {
@@ -34,16 +18,12 @@ function gridReducer(state, action) {
       const selectedPlantIds = isSelected
         ? state.selectedPlantIds.filter(id => id !== plantId)
         : [...state.selectedPlantIds, plantId]
-      return recomputeWarnings({ ...state, selectedPlantIds })
+      return { ...state, selectedPlantIds }
     }
 
     case 'APPLY_SUGGESTION': {
       const { placements, excluded } = action
-      return recomputeWarnings({
-        ...state,
-        placements,
-        excludedPlantIds: excluded,
-      })
+      return { ...state, placements, excludedPlantIds: excluded }
     }
 
     case 'MOVE_PLANT': {
@@ -64,7 +44,7 @@ function gridReducer(state, action) {
         newPlacements.push({ cellIndex: from, plantId: displaced })
       }
 
-      return recomputeWarnings({ ...state, placements: newPlacements })
+      return { ...state, placements: newPlacements }
     }
 
     case 'PLACE_PLANT': {
@@ -72,15 +52,15 @@ function gridReducer(state, action) {
       const { cellIndex, plantId } = action
       const newPlacements = state.placements.filter(p => p.cellIndex !== cellIndex)
       newPlacements.push({ cellIndex, plantId })
-      return recomputeWarnings({ ...state, placements: newPlacements })
+      return { ...state, placements: newPlacements }
     }
 
     case 'REMOVE_PLANT': {
       const { cellIndex } = action
-      return recomputeWarnings({
+      return {
         ...state,
         placements: state.placements.filter(p => p.cellIndex !== cellIndex),
-      })
+      }
     }
 
     case 'SWAP_EXCLUDED': {
@@ -96,15 +76,7 @@ function gridReducer(state, action) {
         .filter(id => id !== excludedPlantId)
         .concat(removedPlantId ? [removedPlantId] : [])
 
-      return recomputeWarnings({
-        ...state,
-        placements: newPlacements,
-        excludedPlantIds: newExcluded,
-      })
-    }
-
-    case 'RECOMPUTE_WARNINGS': {
-      return recomputeWarnings(state)
+      return { ...state, placements: newPlacements, excludedPlantIds: newExcluded }
     }
 
     default:
@@ -117,15 +89,22 @@ function gridReducer(state, action) {
  * @param {object|null} initialBed
  */
 export function useGrid(initialBed, initialSelectedPlantIds, initialPlacements) {
+  const { plantsById } = usePlants()
+
   const [state, dispatch] = useReducer(gridReducer, {
-    ...initialState,
     bed: initialBed,
     selectedPlantIds: initialSelectedPlantIds ?? [],
     placements: initialPlacements ?? [],
-    warnings: initialBed
-      ? computeWarnings(initialPlacements ?? [], initialBed.width, initialBed.height)
-      : {},
+    excludedPlantIds: [],
   })
+
+  // Derive warnings from current placements — never stored in the reducer
+  const warnings = useMemo(
+    () => state.bed
+      ? computeWarnings(state.placements, state.bed.width, state.bed.height, plantsById)
+      : {},
+    [state.placements, state.bed, plantsById]
+  )
 
   function setBedMeta(bed, placements, selectedPlantIds) {
     dispatch({ type: 'SET_BED_META', bed, placements, selectedPlantIds })
@@ -169,7 +148,7 @@ export function useGrid(initialBed, initialSelectedPlantIds, initialPlacements) 
   }
 
   return {
-    state,
+    state: { ...state, warnings },
     setBedMeta,
     togglePlantSelected,
     applySuggestion,

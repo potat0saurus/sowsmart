@@ -2,7 +2,6 @@
  * Compatibility / warning computation.
  * Pure functions — zero React, portable to React Native.
  */
-import { plantsById } from '../data/plants.js'
 
 /**
  * Get the 4-directional orthogonal neighbours of a cell index in a grid.
@@ -27,9 +26,10 @@ export function getNeighbours(cellIndex, width, height) {
  * @param {Array<{cellIndex: number, plantId: string}>} placements
  * @param {number} width
  * @param {number} height
+ * @param {object} plantsById - id → plant lookup map
  * @returns {{ [cellIndex: number]: string[] }} map of cell → warning messages
  */
-export function computeWarnings(placements, width, height) {
+export function computeWarnings(placements, width, height, plantsById) {
   const cellMap = Object.fromEntries(placements.map(p => [p.cellIndex, p.plantId]))
   const warnings = {}
 
@@ -74,8 +74,9 @@ export function getCellSeverity(warnings, cellIndex) {
 /**
  * Score a candidate (plantId) being placed at cellIndex, given existing placements.
  * Used by autoSuggest.
+ * @param {object} plantsById - id → plant lookup map
  */
-export function scorePlacement(plantId, cellIndex, cellMap, width, height) {
+export function scorePlacement(plantId, cellIndex, cellMap, width, height, plantsById) {
   const plant = plantsById[plantId]
   if (!plant) return 0
 

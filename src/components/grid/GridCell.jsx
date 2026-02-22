@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core'
-import { plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import { getCellSeverity } from '../../lib/compatibility.js'
 import WarningBadge from './WarningBadge.jsx'
 import styles from './GridCell.module.css'
@@ -12,6 +12,7 @@ export default function GridCell({
   onClick,
   isSelected,
 }) {
+  const { plantsById } = usePlants()
   const { setNodeRef, isOver } = useDroppable({ id: `cell-${cellIndex}` })
   const plant = plantId ? plantsById[plantId] : null
   const severity = getCellSeverity(warnings ?? {}, cellIndex)

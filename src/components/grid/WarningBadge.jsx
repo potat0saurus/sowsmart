@@ -1,7 +1,8 @@
-import { plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import styles from './WarningBadge.module.css'
 
 export default function WarningBadge({ warnings }) {
+  const { plantsById } = usePlants()
   if (!warnings || warnings.length === 0) return null
 
   const hasIncompatible = warnings.some(w => w.startsWith('incompatible'))

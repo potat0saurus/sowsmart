@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react'
-import { plants } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import DraggablePaletteCard from './DraggablePaletteCard.jsx'
 import Input from '../ui/Input.jsx'
 import styles from './PlantSelector.module.css'
 
 export default function PlantSelector({ selectedPlantIds, onToggle }) {
+  const { plants } = usePlants()
   const [search, setSearch] = useState('')
 
   // Compute which plants are companions of currently-selected plants

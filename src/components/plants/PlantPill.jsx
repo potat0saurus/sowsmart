@@ -1,7 +1,8 @@
-import { plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import styles from './PlantPill.module.css'
 
 export default function PlantPill({ plantId, onRemove }) {
+  const { plantsById } = usePlants()
   const plant = plantsById[plantId]
   if (!plant) return null
 

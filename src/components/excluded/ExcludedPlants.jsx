@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { plantsById } from '../../data/plants.js'
+import { usePlants } from '../../context/PlantsContext.jsx'
 import Modal from '../ui/Modal.jsx'
 import Button from '../ui/Button.jsx'
 import styles from './ExcludedPlants.module.css'
@@ -9,6 +9,7 @@ import styles from './ExcludedPlants.module.css'
  * Lets the user swap them in by picking a placed plant to remove.
  */
 export default function ExcludedPlants({ excludedPlantIds, placements, onSwap }) {
+  const { plantsById } = usePlants()
   const [swapping, setSwapping] = useState(null) // plantId being swapped in
 
   if (excludedPlantIds.length === 0) return null
