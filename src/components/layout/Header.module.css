@@ -32,7 +32,8 @@
 
 .tagline {
   font-size: var(--font-size-sm);
-  color: rgba(255,255,255,0.65);
+  color: var(--color-text-inv);
+  opacity: 0.65;
   margin-left: var(--space-1);
 }
 
