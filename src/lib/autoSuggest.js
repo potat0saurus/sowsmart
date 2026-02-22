@@ -3,13 +3,12 @@
  * Greedy most-constrained-first placement.
  * Pure functions — zero React, portable to React Native.
  */
-import { plantsById } from '../data/plants.js'
 import { scorePlacement } from './compatibility.js'
 
 /**
  * Constraint score: plants with more incompatibilities get placed first.
  */
-function constraintScore(plantId) {
+function constraintScore(plantId, plantsById) {
   const plant = plantsById[plantId]
   if (!plant) return 0
   return plant.incompatible.length * 3 + plant.competitors.length
@@ -23,7 +22,7 @@ function constraintScore(plantId) {
  * @param {number}   height           - bed height in cells
  * @returns {{ placements: Array<{cellIndex: number, plantId: string}>, excluded: string[] }}
  */
-export function autoSuggest(selectedPlantIds, width, height) {
+export function autoSuggest(selectedPlantIds, width, height, plantsById) {
   const totalCells = width * height
   const placements = []
   const excluded = []
@@ -34,7 +33,7 @@ export function autoSuggest(selectedPlantIds, width, height) {
 
   // Sort by constraint score descending (most constrained first)
   const sorted = [...selectedPlantIds].sort(
-    (a, b) => constraintScore(b) - constraintScore(a)
+    (a, b) => constraintScore(b, plantsById) - constraintScore(a, plantsById)
   )
 
   // If we have more plants than cells, drop least-constrained plants
@@ -52,7 +51,7 @@ export function autoSuggest(selectedPlantIds, width, height) {
 
     for (let i = 0; i < totalCells; i++) {
       if (cellMap[i] !== undefined) continue
-      const s = scorePlacement(plantId, i, cellMap, width, height)
+      const s = scorePlacement(plantId, i, cellMap, width, height, plantsById)
       if (s > bestScore || (s === bestScore && bestCell === -1)) {
         bestScore = s
         bestCell = i
