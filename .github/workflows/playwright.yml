@@ -22,13 +22,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
-
-      - name: Verify supabase installed
-        run: ls node_modules/@supabase/ && cat node_modules/@supabase/supabase-js/package.json | grep '"version"'
 
       - name: Build (Netlify base path)
         run: npm run build
