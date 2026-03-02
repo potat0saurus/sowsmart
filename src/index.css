@@ -2,33 +2,33 @@
    SowSmart — Design tokens & global styles
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
 
 :root {
-  /* Colour palette — Hilda-inspired folk illustration */
-  --color-brand:        #689595;   /* dusty teal */
-  --color-brand-light:  #7083a5;   /* muted periwinkle */
-  --color-brand-dark:   #596088;   /* slate navy */
-  --color-accent:       #9c6853;   /* dusty terracotta */
-  --color-bg:           #e6e2e7;   /* very light lavender gray */
-  --color-surface:      #fbdfcb;   /* warm light peach */
-  --color-border:       #c0a5a9;   /* dusty mauve */
-  --color-text:         #2a2e45;   /* dark navy */
-  --color-text-muted:   #645764;   /* muted purple-gray */
-  --color-text-inv:     #e6e2e7;   /* light lavender */
+  /* Colour palette — Vintage seed packet */
+  --color-brand:        #3D6B35;   /* deep garden green */
+  --color-brand-light:  #5A8A50;   /* medium green */
+  --color-brand-dark:   #2A4F24;   /* dark forest green */
+  --color-accent:       #8B3A2A;   /* deep rust / terracotta */
+  --color-bg:           #F2E8D5;   /* aged parchment */
+  --color-surface:      #FBF5E6;   /* lighter cream */
+  --color-border:       #B8956A;   /* warm tan */
+  --color-text:         #2C1810;   /* dark warm brown */
+  --color-text-muted:   #6B4A3A;   /* medium warm brown */
+  --color-text-inv:     #FBF5E6;   /* light cream */
 
   /* Companion relationship colours */
-  --color-companion:    #689595;   /* dusty teal */
-  --color-competitor:   #9c6853;   /* dusty terracotta */
-  --color-incompatible: #d55c5a;   /* muted coral red */
-  --color-companion-bg:    #cbcde8;   /* light periwinkle tint */
-  --color-competitor-bg:   #f6c992;   /* warm golden tint */
-  --color-incompatible-bg: #f2cbc9;   /* very light blush */
+  --color-companion:    #3D6B35;   /* deep garden green */
+  --color-competitor:   #8B3A2A;   /* deep rust */
+  --color-incompatible: #A83228;   /* deep red */
+  --color-companion-bg:    #D6E8D0;   /* light green tint */
+  --color-competitor-bg:   #F6DDC0;   /* warm golden tint */
+  --color-incompatible-bg: #F2D0CB;   /* light blush */
 
   /* Grid */
   --cell-size:          72px;
   --grid-gap:           4px;
-  --cell-radius:        8px;
+  --cell-radius:        4px;
 
   /* Spacing */
   --space-1: 4px;
@@ -41,7 +41,8 @@
   --space-8: 64px;
 
   /* Typography */
-  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-body:    'Source Serif 4', Georgia, serif;
+  --font-heading: 'Libre Baskerville', Georgia, serif;
   --font-size-xs:  11px;
   --font-size-sm:  13px;
   --font-size-md:  15px;
@@ -70,7 +71,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--font-size-md);
   color: var(--color-text);
   background: var(--color-bg);
@@ -93,8 +94,9 @@ button {
 }
 
 h1, h2, h3, h4 {
+  font-family: var(--font-heading);
   line-height: 1.25;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Scrollbar */

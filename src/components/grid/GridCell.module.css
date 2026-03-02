@@ -56,7 +56,7 @@
   box-shadow: 0 0 0 2px var(--color-brand);
 }
 
-.emoji { font-size: 22px; line-height: 1; }
+.icon { width: 36px; height: 36px; object-fit: contain; }
 .name  { font-size: 9px; font-weight: 600; text-align: center; color: var(--color-text); line-height: 1.1; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .count { font-size: 8px; color: var(--color-text-muted); }
 

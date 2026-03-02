@@ -29,7 +29,7 @@
   border-color: var(--color-brand-light);
 }
 
-.emoji { font-size: 24px; }
+.icon { width: 32px; height: 32px; object-fit: contain; }
 .name  { font-size: var(--font-size-xs); font-weight: 600; color: var(--color-text); }
 .pps   { font-size: 10px; color: var(--color-text-muted); }
 

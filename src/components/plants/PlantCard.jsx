@@ -1,3 +1,4 @@
+import { iconUrl } from '../../lib/icons.js'
 import styles from './PlantCard.module.css'
 
 export default function PlantCard({ plant, isSelected, onToggle, companionIds = [] }) {
@@ -14,7 +15,7 @@ export default function PlantCard({ plant, isSelected, onToggle, companionIds = 
       aria-pressed={isSelected}
       aria-label={`${plant.name} — ${isSelected ? 'selected' : 'not selected'}${isCompanion ? ', companion plant' : ''}`}
     >
-      <span className={styles.emoji}>{plant.emoji}</span>
+      <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
       <span className={styles.name}>{plant.name}</span>
       <span className={styles.pps}>{plant.plantsPerSquare}/sq</span>
       {isCompanion && (

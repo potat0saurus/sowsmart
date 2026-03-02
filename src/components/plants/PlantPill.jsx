@@ -1,4 +1,5 @@
 import { usePlants } from '../../context/PlantsContext.jsx'
+import { iconUrl } from '../../lib/icons.js'
 import styles from './PlantPill.module.css'
 
 export default function PlantPill({ plantId, onRemove }) {
@@ -8,7 +9,8 @@ export default function PlantPill({ plantId, onRemove }) {
 
   return (
     <span className={styles.pill}>
-      {plant.emoji} {plant.name}
+      <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
+      {plant.name}
       {onRemove && (
         <button
           className={styles.remove}

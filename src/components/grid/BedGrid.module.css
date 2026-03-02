@@ -25,3 +25,5 @@
   font-size: 9px;
   font-weight: 600;
 }
+
+.dragIcon { width: 32px; height: 32px; object-fit: contain; }

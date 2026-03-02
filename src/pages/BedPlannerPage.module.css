@@ -153,5 +153,5 @@
   border-color: var(--color-brand);
 }
 
-.modalPlantEmoji { font-size: 22px; }
+.modalPlantEmoji { width: 28px; height: 28px; object-fit: contain; }
 .modalPlantPps { margin-left: auto; font-size: var(--font-size-xs); color: var(--color-text-muted); }

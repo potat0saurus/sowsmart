@@ -25,7 +25,7 @@ export default function BedCard({ bed, onDelete, onEdit }) {
 
         <div className={styles.actions}>
           <Link to={`/bed/${bed.id}`} className={styles.planLink}>
-            Open planner →
+            Open Planner ›
           </Link>
           <Button variant="ghost" size="sm" onClick={onEdit} aria-label="Edit bed name/size">
             Edit

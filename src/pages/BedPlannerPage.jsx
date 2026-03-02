@@ -21,6 +21,7 @@ import TimingPanel from '../components/timing/TimingPanel.jsx'
 import ExcludedPlants from '../components/excluded/ExcludedPlants.jsx'
 import Button from '../components/ui/Button.jsx'
 import Modal from '../components/ui/Modal.jsx'
+import { iconUrl } from '../lib/icons.js'
 import styles from './BedPlannerPage.module.css'
 import gridStyles from '../components/grid/BedGrid.module.css'
 
@@ -296,7 +297,7 @@ function BedPlannerContent({ bedData }) {
         <DragOverlay>
           {activePlant ? (
             <div className={gridStyles.dragOverlay}>
-              <span>{activePlant.emoji}</span>
+              <img src={iconUrl(activePlant.icon)} alt="" className={gridStyles.dragIcon} />
               <span>{activePlant.name}</span>
             </div>
           ) : null}
@@ -326,7 +327,7 @@ function BedPlannerContent({ bedData }) {
                     className={styles.modalPlantBtn}
                     onClick={() => handlePlantPickForCell(plantId)}
                   >
-                    <span className={styles.modalPlantEmoji}>{plant.emoji}</span>
+                    <img src={iconUrl(plant.icon)} alt="" className={styles.modalPlantEmoji} />
                     <span>{plant.name}</span>
                     <span className={styles.modalPlantPps}>{plant.plantsPerSquare}/sq ft</span>
                   </button>
