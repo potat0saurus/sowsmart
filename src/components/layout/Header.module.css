@@ -1,13 +1,14 @@
 .header {
   background: var(--color-brand-dark);
   color: var(--color-text-inv);
-  box-shadow: var(--shadow-sm);
+  border-bottom: 3px solid var(--color-accent);
+  box-shadow: 0 2px 8px rgba(44, 24, 16, 0.25);
 }
 
 .inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
   display: flex;
   align-items: center;
   gap: var(--space-4);
@@ -25,16 +26,19 @@
 .logoIcon { font-size: 24px; }
 
 .logoText {
+  font-family: var(--font-heading);
   font-size: var(--font-size-xl);
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.06em;
 }
 
 .tagline {
   font-size: var(--font-size-sm);
   color: var(--color-text-inv);
-  opacity: 0.65;
+  opacity: 0.55;
   margin-left: var(--space-1);
+  letter-spacing: 0.08em;
+  font-style: italic;
 }
 
 @media (max-width: 480px) {

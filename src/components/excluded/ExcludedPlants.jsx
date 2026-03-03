@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { usePlants } from '../../context/PlantsContext.jsx'
+import { iconUrl } from '../../lib/icons.js'
 import Modal from '../ui/Modal.jsx'
 import Button from '../ui/Button.jsx'
 import styles from './ExcludedPlants.module.css'
@@ -39,7 +40,7 @@ export default function ExcludedPlants({ excludedPlantIds, placements, onSwap })
           if (!plant) return null
           return (
             <div key={id} className={styles.item}>
-              <span className={styles.emoji}>{plant.emoji}</span>
+              <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
               <span className={styles.name}>{plant.name}</span>
               <Button size="sm" variant="secondary" onClick={() => handleSwap(id)}>
                 Swap in
@@ -67,7 +68,7 @@ export default function ExcludedPlants({ excludedPlantIds, placements, onSwap })
                 className={styles.placedItem}
                 onClick={() => handlePickReplacement(cellIndex)}
               >
-                <span>{plant.emoji}</span>
+                <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
                 <span>{plant.name}</span>
                 <span className={styles.cellLabel}>Cell {cellIndex + 1}</span>
               </button>

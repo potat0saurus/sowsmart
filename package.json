@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "icons:crop": "node scripts/crop-icons.mjs",
+    "icons:remove-bg-api": "node scripts/remove-bg-api.mjs",
+    "icons:remove-bg": "node scripts/remove-bg.mjs",
+    "icons:retrim": "node scripts/retrim-icons.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
@@ -23,6 +27,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "sharp": "^0.34.5",
     "vite": "^5.4.2"
   }
 }

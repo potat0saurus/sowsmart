@@ -1,4 +1,5 @@
 import { useDroppable } from '@dnd-kit/core'
+import { iconUrl } from '../../lib/icons.js'
 import { usePlants } from '../../context/PlantsContext.jsx'
 import { getCellSeverity } from '../../lib/compatibility.js'
 import WarningBadge from './WarningBadge.jsx'
@@ -37,11 +38,13 @@ export default function GridCell({
     >
       {plant ? (
         <>
-          <span className={styles.emoji}>{plant.emoji}</span>
-          <span className={styles.name}>{plant.name}</span>
-          <span className={styles.count}>
-            {plant.plantsPerSquare > 1 ? `×${plant.plantsPerSquare}` : ''}
-          </span>
+          <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
+          {plant.plantsPerSquare > 1 && (
+            <span className={styles.countBadge}>×{plant.plantsPerSquare}</span>
+          )}
+          <div className={styles.nameOverlay}>
+            <span className={styles.nameText}>{plant.name}</span>
+          </div>
           <WarningBadge warnings={cellWarnings} />
           <button
             className={styles.removeBtn}

@@ -1,34 +1,49 @@
-.panel { display: flex; flex-direction: column; gap: var(--space-4); }
+.panel { display: flex; flex-direction: column; gap: var(--space-3); }
 
+/* Empty state */
 .empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
   color: var(--color-text-muted);
   font-style: italic;
   font-size: var(--font-size-sm);
-  padding: var(--space-3) 0;
+  border: 1.5px dashed var(--color-border);
+  border-radius: 8px;
 }
 
+/* Each plant as a card with column layout */
 .row {
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--color-border);
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1.5px solid #9A7040;
+  border-radius: 8px;
 }
-.row:last-child { border-bottom: none; }
 
+/* Plant name spans full width as a card header */
 .plantName {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-width: 100px;
+  font-family: var(--font-heading);
   font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .relationships {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  flex: 1;
 }
 
 .group { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -38,15 +53,31 @@
   color: var(--color-text-muted);
 }
 
-.suggestionLabel { font-weight: 600; color: var(--color-brand); }
+.suggestionLabel {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
 
-.neutral { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+.neutral {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
 
+/* Legend card */
 .legend {
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
-  padding-top: var(--space-3);
-  margin-top: var(--space-2);
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1.5px solid #9A7040;
+  border-radius: 8px;
 }
+
+.icon     { width: 18px; height: 18px; object-fit: contain; vertical-align: middle; }
+.badgeIcon { width: 14px; height: 14px; object-fit: contain; vertical-align: middle; }

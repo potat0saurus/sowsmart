@@ -1,27 +1,50 @@
 .wrapper { display: flex; flex-direction: column; gap: var(--space-3); }
 
-.search { max-width: 300px; }
+.search { width: 100%; }
 
-.companionHint {
-  font-size: var(--font-size-sm);
-  color: var(--color-brand);
-  font-style: italic;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
+/* "── hint text ──" vintage divider rule */
 .dragHint {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: rgba(44, 24, 16, 0.55);
   font-style: italic;
+  letter-spacing: 0.02em;
+}
+.dragHint::before,
+.dragHint::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(44, 24, 16, 0.25);
+}
+
+/* Companion callout box */
+.companionHint {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-brand-dark);
+  background: rgba(214, 232, 208, 0.85);
+  border: 1.5px solid var(--color-brand-light);
+  border-radius: 4px;
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+}
+
+/* 2-column catalog row list */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
 }
 
 .noResults {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: rgba(44, 24, 16, 0.6);
   padding: var(--space-3);
+  font-style: italic;
+  grid-column: 1 / -1;
 }

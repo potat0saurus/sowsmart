@@ -1,4 +1,5 @@
 import { usePlants } from '../../context/PlantsContext.jsx'
+import { iconUrl } from '../../lib/icons.js'
 import { getPlantTiming, zoneBand, zoneBandLabel } from '../../lib/timing.js'
 import { useAppContext } from '../../context/AppContext.jsx'
 import Input from '../ui/Input.jsx'
@@ -35,6 +36,7 @@ export default function TimingPanel({ selectedPlantIds }) {
       )}
 
       {band && selectedPlantIds.length > 0 && (
+        <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -53,7 +55,7 @@ export default function TimingPanel({ selectedPlantIds }) {
               return (
                 <tr key={id}>
                   <td className={styles.plantCell}>
-                    <span>{plant.emoji}</span>
+                    <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
                     <span>{plant.name}</span>
                   </td>
                   <td>{timing?.indoor_start ?? '—'}</td>
@@ -65,6 +67,7 @@ export default function TimingPanel({ selectedPlantIds }) {
             })}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   )

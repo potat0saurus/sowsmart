@@ -11,3 +11,6 @@ test-results/
 
 # Local Netlify folder
 .netlify
+
+# Raw ChatGPT icon batch images (source material, not needed in repo)
+/*.png

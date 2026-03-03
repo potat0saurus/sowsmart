@@ -3,10 +3,27 @@
 .zoneInput { max-width: 280px; }
 .zoneField { width: 100%; }
 
+/* Empty states */
 .empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   font-style: italic;
+  border: 1.5px dashed var(--color-border);
+  border-radius: 8px;
+}
+
+/* Table container — raised cream card sitting on the tan sidebar */
+.tableContainer {
+  border: 2px solid #7A5828;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(40, 18, 4, 0.18);
 }
 
 .table {
@@ -15,26 +32,45 @@
   font-size: var(--font-size-sm);
 }
 
-.table th, .table td {
-  text-align: left;
-  padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+/* Dark header band — like a seed packet label */
+.table thead {
+  background: #3D2010;
 }
 
 .table th {
-  font-weight: 600;
-  color: var(--color-text-muted);
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: #F2E8D5;
   font-size: var(--font-size-xs);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: var(--color-bg);
+  letter-spacing: 0.06em;
 }
 
-.table tr:hover td { background: var(--color-bg); }
+/* Body rows — cream surface so they pop off the tan sidebar */
+.table td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid rgba(154, 112, 64, 0.25);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.table tbody tr:last-child td { border-bottom: none; }
+
+/* Alternating row stripes */
+.table tbody tr:nth-child(even) td { background: var(--color-bg); }
+
+.table tbody tr:hover td { background: rgba(214, 232, 208, 0.5); }
 
 .plantCell {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
 }
+
+.icon { width: 20px; height: 20px; object-fit: contain; }

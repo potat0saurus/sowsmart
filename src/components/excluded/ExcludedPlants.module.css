@@ -26,7 +26,7 @@
   padding: var(--space-2) var(--space-3);
 }
 
-.emoji { font-size: 20px; }
+.icon { width: 24px; height: 24px; object-fit: contain; }
 .name { flex: 1; font-size: var(--font-size-sm); font-weight: 500; }
 
 /* Modal content */

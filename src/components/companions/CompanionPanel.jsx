@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { usePlants } from '../../context/PlantsContext.jsx'
+import { iconUrl } from '../../lib/icons.js'
 import Badge from '../ui/Badge.jsx'
 import styles from './CompanionPanel.module.css'
 
@@ -38,7 +39,7 @@ export default function CompanionPanel({ selectedPlantIds }) {
       {rows.map(({ plant, companions, competitors, incompatible, suggested }) => (
         <div key={plant.id} className={styles.row}>
           <div className={styles.plantName}>
-            <span>{plant.emoji}</span>
+            <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
             <strong>{plant.name}</strong>
           </div>
 
@@ -47,7 +48,7 @@ export default function CompanionPanel({ selectedPlantIds }) {
               <div className={styles.group}>
                 {companions.map(id => (
                   <Badge key={id} variant="companion">
-                    ✓ {plantsById[id]?.emoji} {plantsById[id]?.name}
+                    ✓ <img src={iconUrl(plantsById[id]?.icon)} alt="" className={styles.badgeIcon} /> {plantsById[id]?.name}
                   </Badge>
                 ))}
               </div>
@@ -56,7 +57,7 @@ export default function CompanionPanel({ selectedPlantIds }) {
               <div className={styles.group}>
                 {competitors.map(id => (
                   <Badge key={id} variant="competitor">
-                    ⚡ {plantsById[id]?.emoji} {plantsById[id]?.name}
+                    ⚡ <img src={iconUrl(plantsById[id]?.icon)} alt="" className={styles.badgeIcon} /> {plantsById[id]?.name}
                   </Badge>
                 ))}
               </div>
@@ -65,7 +66,7 @@ export default function CompanionPanel({ selectedPlantIds }) {
               <div className={styles.group}>
                 {incompatible.map(id => (
                   <Badge key={id} variant="incompatible">
-                    ⚠ {plantsById[id]?.emoji} {plantsById[id]?.name}
+                    ⚠ <img src={iconUrl(plantsById[id]?.icon)} alt="" className={styles.badgeIcon} /> {plantsById[id]?.name}
                   </Badge>
                 ))}
               </div>
@@ -73,7 +74,13 @@ export default function CompanionPanel({ selectedPlantIds }) {
             {suggested.length > 0 && (
               <p className={styles.suggestion}>
                 <span className={styles.suggestionLabel}>Good companions to add:</span>{' '}
-                {suggested.map(p => `${p.emoji} ${p.name}`).join(', ')}
+                {suggested.map((p, i) => (
+                  <span key={p.id}>
+                    {i > 0 && ', '}
+                    <img src={iconUrl(p.icon)} alt="" className={styles.badgeIcon} />
+                    {' '}{p.name}
+                  </span>
+                ))}
               </p>
             )}
             {companions.length === 0 && competitors.length === 0 &&

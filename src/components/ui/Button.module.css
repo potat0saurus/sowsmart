@@ -3,10 +3,12 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: background var(--transition), color var(--transition), opacity var(--transition);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: background var(--transition), color var(--transition), opacity var(--transition), box-shadow var(--transition);
   white-space: nowrap;
   line-height: 1;
 }
@@ -25,25 +27,48 @@
 .primary {
   background: var(--color-brand);
   color: var(--color-text-inv);
+  border-color: var(--color-brand-dark);
+  box-shadow: 2px 2px 0 var(--color-brand-dark);
 }
-.primary:hover:not(:disabled) { background: var(--color-brand-dark); }
+.primary:hover:not(:disabled) {
+  background: var(--color-brand-dark);
+  box-shadow: 1px 1px 0 var(--color-brand-dark);
+  transform: translate(1px, 1px);
+}
 
 .secondary {
   background: var(--color-surface);
-  color: var(--color-brand);
-  border: 1.5px solid var(--color-brand);
+  color: var(--color-brand-dark);
+  border-color: var(--color-brand);
+  box-shadow: 2px 2px 0 var(--color-brand);
 }
-.secondary:hover:not(:disabled) { background: var(--color-companion-bg); }
+.secondary:hover:not(:disabled) {
+  background: var(--color-companion-bg);
+  box-shadow: 1px 1px 0 var(--color-brand);
+  transform: translate(1px, 1px);
+}
 
 .ghost {
   background: transparent;
   color: var(--color-text-muted);
-  border: 1.5px solid var(--color-border);
+  border-color: var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
 }
-.ghost:hover:not(:disabled) { background: var(--color-border); color: var(--color-text); }
+.ghost:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 1px 1px 0 var(--color-border);
+  transform: translate(1px, 1px);
+}
 
 .danger {
   background: var(--color-incompatible);
   color: var(--color-text-inv);
+  border-color: #7a2020;
+  box-shadow: 2px 2px 0 #7a2020;
 }
-.danger:hover:not(:disabled) { background: #9b1b1b; }
+.danger:hover:not(:disabled) {
+  background: #9b1b1b;
+  box-shadow: 1px 1px 0 #7a2020;
+  transform: translate(1px, 1px);
+}
