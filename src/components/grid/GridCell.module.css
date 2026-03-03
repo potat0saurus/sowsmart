@@ -54,7 +54,7 @@
 }
 
 /* Icon fills most of the cell */
-.icon { width: 70px; height: 70px; object-fit: contain; }
+.icon { width: var(--cell-icon-size); height: var(--cell-icon-size); object-fit: contain; }
 
 /* Plants-per-square badge — top right corner */
 .countBadge {
