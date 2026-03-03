@@ -7,23 +7,51 @@
   justify-content: space-between;
   gap: var(--space-4);
   flex-wrap: wrap;
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .backLink {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   display: block;
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.02em;
+}
+.backLink:hover { color: var(--color-brand); text-decoration: none; }
+
+.bedName {
+  font-size: var(--font-size-2xl);
+  font-family: var(--font-heading);
 }
 
-.bedName  { font-size: var(--font-size-2xl); }
-.bedMeta  { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-top: 2px; }
+.bedName::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--color-accent);
+  margin-top: var(--space-2);
+  border-radius: 2px;
+}
+
+.bedMeta { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-top: var(--space-2); }
 
 .headerActions { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
 
-.saveIndicator { font-size: var(--font-size-sm); font-weight: 500; }
+/* Save indicator — vintage stamp style */
+.saveIndicator {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1.5px solid currentColor;
+}
 .saved  { color: var(--color-brand); }
-.saving { color: var(--color-text-muted); }
+.saving { color: var(--color-text-muted); border-style: dashed; }
 
 /* Two-column layout */
 .layout {
@@ -46,6 +74,19 @@
   padding-bottom: var(--space-2);
 }
 
+/* Raised bed frame — dark soil background, warm wood-plank border */
+.bedFrame {
+  display: inline-block;
+  background: #3B1F0C;
+  border: 8px solid #B8956A;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 2px #9A7040,
+    inset 0 3px 10px rgba(30, 10, 2, 0.5),
+    0 6px 20px rgba(40, 18, 4, 0.3);
+}
+
 .selectedPills {
   display: flex;
   flex-wrap: wrap;
@@ -54,15 +95,18 @@
 }
 
 .pillsLabel {
-  font-size: var(--font-size-sm);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
-  font-weight: 500;
 }
 
 /* Sidebar */
 .sidebar {
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
+  background: var(--color-border);
+  border: 2px solid #9A7848;
   border-radius: 14px;
   overflow: hidden;
   min-width: 280px;
@@ -72,12 +116,13 @@
   position: sticky;
   top: var(--space-4);
   max-height: calc(100vh - var(--space-8));
+  box-shadow: var(--shadow-md);
 }
 
 .tabs {
   display: flex;
-  border-bottom: 2px solid var(--color-border);
-  background: var(--color-bg);
+  border-bottom: 2px solid #9A7848;
+  background: #A07848;
   flex-shrink: 0;
 }
 
@@ -86,21 +131,24 @@
   padding: var(--space-3) var(--space-4);
   background: none;
   border: none;
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(44, 24, 16, 0.6);
   cursor: pointer;
   border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
   transition: all var(--transition);
-  font-family: inherit;
 }
 
-.tab:hover { color: var(--color-text); background: var(--color-border); }
+.tab:hover { color: var(--color-text); background: rgba(255, 255, 255, 0.15); }
 
 .tabActive {
-  color: var(--color-brand);
-  border-bottom-color: var(--color-brand);
-  background: var(--color-surface);
+  color: var(--color-text);
+  border-bottom-color: var(--color-text);
+  background: rgba(251, 245, 230, 0.2);
 }
 
 .tabContent {
@@ -138,7 +186,7 @@
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
   font-size: var(--font-size-md);
@@ -153,5 +201,5 @@
   border-color: var(--color-brand);
 }
 
-.modalPlantEmoji { width: 28px; height: 28px; object-fit: contain; }
+.modalPlantEmoji { width: 32px; height: 32px; object-fit: contain; }
 .modalPlantPps { margin-left: auto; font-size: var(--font-size-xs); color: var(--color-text-muted); }

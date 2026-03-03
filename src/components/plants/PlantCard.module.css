@@ -1,42 +1,72 @@
+/* Seed catalog row — icon + name side by side */
 .card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: var(--space-2) var(--space-3);
-  border: 1.5px solid var(--color-border);
-  border-radius: 10px;
+  gap: 6px;
+  padding: 5px 7px;
+  width: 100%;
+  border: 1.5px solid #9A7040;
+  border-radius: 4px;
   background: var(--color-surface);
   cursor: pointer;
   transition: all var(--transition);
   position: relative;
-  text-align: center;
-  min-width: 70px;
+  overflow: hidden;
+  text-align: left;
 }
 
 .card:hover {
   border-color: var(--color-brand-light);
-  background: var(--color-companion-bg);
+  background: rgba(214, 232, 208, 0.35);
 }
 
+/* Selected */
 .selected {
   border-color: var(--color-brand);
-  background: var(--color-companion-bg);
-  box-shadow: 0 0 0 2px var(--color-brand-light);
+  background: rgba(214, 232, 208, 0.65);
+}
+.selected:hover {
+  border-color: var(--color-brand-dark);
+  background: rgba(214, 232, 208, 0.8);
 }
 
+/* Companion suggestion — dashed green border */
 .companion {
   border-color: var(--color-brand-light);
+  border-style: dashed;
 }
 
-.icon { width: 32px; height: 32px; object-fit: contain; }
-.name  { font-size: var(--font-size-xs); font-weight: 600; color: var(--color-text); }
-.pps   { font-size: 10px; color: var(--color-text-muted); }
+.icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
 
+.name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.selected .name { color: var(--color-brand-dark); }
+
+/* Companion star */
 .companionDot {
-  position: absolute;
-  top: 2px;
-  right: 4px;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--color-brand);
+  flex-shrink: 0;
 }
+
+/* Hidden — not used in row layout */
+.pps        { display: none; }
+.nameBand   { display: none; }
+.iconWrap   { display: none; }

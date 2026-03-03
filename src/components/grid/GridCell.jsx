@@ -39,10 +39,12 @@ export default function GridCell({
       {plant ? (
         <>
           <img src={iconUrl(plant.icon)} alt="" className={styles.icon} />
-          <span className={styles.name}>{plant.name}</span>
-          <span className={styles.count}>
-            {plant.plantsPerSquare > 1 ? `×${plant.plantsPerSquare}` : ''}
-          </span>
+          {plant.plantsPerSquare > 1 && (
+            <span className={styles.countBadge}>×{plant.plantsPerSquare}</span>
+          )}
+          <div className={styles.nameOverlay}>
+            <span className={styles.nameText}>{plant.name}</span>
+          </div>
           <WarningBadge warnings={cellWarnings} />
           <button
             className={styles.removeBtn}

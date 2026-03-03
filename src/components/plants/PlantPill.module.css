@@ -1,18 +1,21 @@
 .icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 10px 3px 8px;
+  gap: 5px;
+  padding: 4px 8px 4px 5px;
   background: var(--color-companion-bg);
-  border: 1px solid var(--color-brand-light);
-  border-radius: 999px;
-  font-size: var(--font-size-sm);
+  border: 1.5px solid var(--color-brand-light);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--color-brand-dark);
   white-space: nowrap;
 }
@@ -25,7 +28,7 @@
   cursor: pointer;
   padding: 1px;
   margin-left: 2px;
-  border-radius: 50%;
+  border-radius: 2px;
   line-height: 1;
   display: inline-flex;
   align-items: center;

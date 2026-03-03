@@ -36,6 +36,7 @@ export default function TimingPanel({ selectedPlantIds }) {
       )}
 
       {band && selectedPlantIds.length > 0 && (
+        <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -66,6 +67,7 @@ export default function TimingPanel({ selectedPlantIds }) {
             })}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   )

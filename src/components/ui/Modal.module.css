@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(44, 24, 16, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,8 @@
 
 .modal {
   background: var(--color-surface);
-  border-radius: 12px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
   box-shadow: var(--shadow-lg);
   max-width: 520px;
   width: 100%;
@@ -25,11 +26,16 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
   flex-shrink: 0;
 }
 
-.title { font-size: var(--font-size-lg); }
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.02em;
+}
 
 .close {
   background: none;
