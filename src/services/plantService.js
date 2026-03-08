@@ -5,8 +5,7 @@ function mapPlant(row) {
   return {
     id: row.id,
     name: row.name,
-    emoji: row.emoji,
-    icon: staticPlantsById[row.id]?.icon,
+    icon: row.icon,
     plantsPerSquare: row.plants_per_square,
     companions: row.companions ?? [],
     competitors: row.competitors ?? [],
